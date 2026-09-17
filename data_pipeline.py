@@ -10,7 +10,7 @@ def przygotuj_dane(filepath):
 
     print(f"1. Wczytywanie danych z pliku: {filepath}")
     df = pd.read_csv(filepath)
-    print(f"   Początkowy rozmiar danych: {df.shape[0]} wierszy.")
+    print(f"Początkowy rozmiar danych: {df.shape[0]} wierszy.")
 
     print("2. Standaryzacja nazw kolumn")
     df.columns = (
@@ -34,7 +34,7 @@ def przygotuj_dane(filepath):
 
     df['Is_Weekend'] = np.where(df['Day_of_Week'] >= 5, 1, 0)
     
-    # Błyskawiczna wektoryzacja flagi Is_Rush_Hour (zamiast powolnego apply)
+    # Błyskawiczna wektoryzacja flagi Is_Rush_Hour (zamiast apply)
     rush_hour_mask = (df['Is_Weekend'] == 0) & (((df['Hour'] >= 7) & (df['Hour'] <= 9)) | ((df['Hour'] >= 15) & (df['Hour'] <= 18)))
     df['Is_Rush_Hour'] = np.where(rush_hour_mask, 1, 0)
 
@@ -58,7 +58,7 @@ def przygotuj_dane(filepath):
     most_frequent_weather = df['Weather_Condition'].mode()[0]
     df['Weather_Condition'] = df['Weather_Condition'].fillna(most_frequent_weather)
 
-    print("6. Usuwanie zbędnych kolumn i szumu informacyjnego...")
+    print("6. Usuwanie zbędnych kolumn i szumu informacyjnego.")
     cols_to_drop = [
         'ID', 'Description', 'Street', 'Zipcode', 'Weather_Timestamp', 
         'Airport_Code', 'City', 'Country', 'Timezone', 
@@ -68,7 +68,7 @@ def przygotuj_dane(filepath):
 
     # Usuwamy pojedyncze wiersze z resztkowymi brakami
     df = df.dropna()
-    print(f"   Rozmiar danych po czyszczeniu: {df.shape[0]} wierszy.")
+    print(f"Rozmiar danych po czyszczeniu: {df.shape[0]} wierszy.")
 
     print("7. Kodowanie zmiennych logicznych i tekstowych")
     bool_cols = df.select_dtypes(include=['bool']).columns
@@ -85,11 +85,11 @@ def przygotuj_dane(filepath):
     X = df.drop(columns=['Severity_Binary'])
     y = df['Severity_Binary']
 
-    # CRITICAL: Usuwamy z pamięci potężny DataFrame przed podziałem
+    # Usuwamy z pamięci potężny DataFrame przed podziałem
     del df
     gc.collect()
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
     
-    print(f"Zakończono! Wymiary X_train: {X_train.shape}, X_test: {X_test.shape}")
+    print(f"Zakończono. Wymiary X_train: {X_train.shape}, X_test: {X_test.shape}")
     return X_train, X_test, y_train, y_test

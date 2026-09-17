@@ -67,7 +67,7 @@ def przygotuj_dane_multiclass(filepath):
     df = df.drop(columns=[col for col in cols_to_drop if col in df.columns], errors='ignore')
 
     df = df.dropna()
-    print(f"   Rozmiar danych po czyszczeniu: {df.shape[0]} wierszy.")
+    print(f"Rozmiar danych po czyszczeniu: {df.shape[0]} wierszy.")
 
     print("7. Kodowanie zmiennych logicznych i tekstowych.")
     bool_cols = df.select_dtypes(include=['bool']).columns
