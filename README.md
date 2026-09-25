@@ -10,9 +10,9 @@ Pobrany plik US_Accidents_March23.csv należy umieścić w tym samym folderze, w
 
 ## Struktura Repozytorium
 
-- data_pipeline.py – Skrypt przetwarzający dane dla wersji binarnej.
+- data_pipeline_binary.py – Skrypt przetwarzający dane dla wersji binarnej.
 
-- data_pipeline_multiclass.py – Skrypt przetwarzający dane dla pełnej klasyfikacji wieloklasowej (Severity 1-4).
+- data_pipeline_multiclass_1.py – Skrypt przetwarzający dane dla pełnej klasyfikacji wieloklasowej (Severity 1-4).
 
 - praca inż_01.ipynb – Wstępny notatnik badawczy (analiza eksploracyjna, testy na próbie 10% danych oraz podejście binarne).
 
